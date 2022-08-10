@@ -64,7 +64,7 @@ int winmain::WinMain(LPCSTR lpCmdLine)
 	// SDL window
 	SDL_Window* window = SDL_CreateWindow
 	(
-		pinball::get_rc_string(38, 0),
+		pinball::get_rc_string(IDS_STRING139, 0),
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 		800, 556,
 		SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE
@@ -546,7 +546,7 @@ void winmain::RenderUi()
 			if (ImGui::BeginMenu("Table Resolution"))
 			{
 				char buffer[20]{};
-				auto maxResText = pinball::get_rc_string(fullscrn::GetMaxResolution() + 2030, 0);
+				auto maxResText = pinball::get_rc_string(fullscrn::GetMaxResolution() + IDS_Menu1_UseMaxResolution_640x480, 0);
 				if (ImGui::MenuItem(maxResText, nullptr, Options.Resolution == -1))
 				{
 					options::toggle(Menu1::MaximumResolution);
@@ -924,8 +924,8 @@ void winmain::memalloc_failure()
 {
 	midi::music_stop();
 	Sound::Close();
-	char* caption = pinball::get_rc_string(170, 0);
-	char* text = pinball::get_rc_string(179, 0);
+	char* caption = pinball::get_rc_string(IDS_STRING270, 0);
+	char* text = pinball::get_rc_string(IDS_STRING279, 0);
 	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, caption, text, MainWindow);
 	std::exit(1);
 }

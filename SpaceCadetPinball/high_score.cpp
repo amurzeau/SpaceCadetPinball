@@ -202,7 +202,7 @@ void high_score::RenderHighScoreDialog()
 			ImGui::OpenPopup("Confirm");
 		if (ImGui::BeginPopupModal("Confirm", nullptr, ImGuiWindowFlags_MenuBar))
 		{
-			ImGui::TextUnformatted(pinball::get_rc_string(40, 0));
+			ImGui::TextUnformatted(pinball::get_rc_string(IDS_STRING141, 0));
 			if (ImGui::Button("OK", ImVec2(120, 0)))
 			{
 				clear_table();
