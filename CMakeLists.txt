@@ -172,12 +172,67 @@ set(SOURCE_FILES
         SpaceCadetPinball/imstb_truetype.h
         SpaceCadetPinball/DebugOverlay.cpp
         SpaceCadetPinball/DebugOverlay.h
+
+        SpaceCadetPinball/translations.h
+        SpaceCadetPinball/translations/arabic_saudi_arabia.cpp
+        SpaceCadetPinball/translations/arabic_saudi_arabia.h
+        SpaceCadetPinball/translations/chinese_simplified.cpp
+        SpaceCadetPinball/translations/chinese_simplified.h
+        SpaceCadetPinball/translations/chinese_traditional.cpp
+        SpaceCadetPinball/translations/chinese_traditional.h
+        SpaceCadetPinball/translations/czech.cpp
+        SpaceCadetPinball/translations/czech.h
+        SpaceCadetPinball/translations/danish.cpp
+        SpaceCadetPinball/translations/danish.h
+        SpaceCadetPinball/translations/dutch.cpp
+        SpaceCadetPinball/translations/dutch.h
+        SpaceCadetPinball/translations/english_us.cpp
+        SpaceCadetPinball/translations/english_us.h
+        SpaceCadetPinball/translations/finnish.cpp
+        SpaceCadetPinball/translations/finnish.h
+        SpaceCadetPinball/translations/french.cpp
+        SpaceCadetPinball/translations/french.h
+        SpaceCadetPinball/translations/german.cpp
+        SpaceCadetPinball/translations/german.h
+        SpaceCadetPinball/translations/greek.cpp
+        SpaceCadetPinball/translations/greek.h
+        SpaceCadetPinball/translations/hebrew.cpp
+        SpaceCadetPinball/translations/hebrew.h
+        SpaceCadetPinball/translations/hungarian.cpp
+        SpaceCadetPinball/translations/hungarian.h
+        SpaceCadetPinball/translations/italian.cpp
+        SpaceCadetPinball/translations/italian.h
+        SpaceCadetPinball/translations/japanese.cpp
+        SpaceCadetPinball/translations/japanese.h
+        SpaceCadetPinball/translations/korean.cpp
+        SpaceCadetPinball/translations/korean.h
+        SpaceCadetPinball/translations/norwegian_bokmal.cpp
+        SpaceCadetPinball/translations/norwegian_bokmal.h
+        SpaceCadetPinball/translations/polish.cpp
+        SpaceCadetPinball/translations/polish.h
+        SpaceCadetPinball/translations/portuguese_brazilian.cpp
+        SpaceCadetPinball/translations/portuguese_brazilian.h
+        SpaceCadetPinball/translations/portuguese.cpp
+        SpaceCadetPinball/translations/portuguese.h
+        SpaceCadetPinball/translations/russian.cpp
+        SpaceCadetPinball/translations/russian.h
+        SpaceCadetPinball/translations/spanish_modern.cpp
+        SpaceCadetPinball/translations/spanish_modern.h
+        SpaceCadetPinball/translations/swedish.cpp
+        SpaceCadetPinball/translations/swedish.h
+        SpaceCadetPinball/translations/turkish.cpp
+        SpaceCadetPinball/translations/turkish.h
         )
 
 # On Windows, include resource file with the icon
+# and add locale retrieval implementation
 if(WIN32)
     set_source_files_properties(SpaceCadetPinball/SpaceCadetPinball.rc LANGUAGE RC)
-    list(APPEND SOURCE_FILES SpaceCadetPinball/SpaceCadetPinball.rc)   
+    list(APPEND SOURCE_FILES SpaceCadetPinball/SpaceCadetPinball.rc)
+
+    list(APPEND SOURCE_FILES SpaceCadetPinball/translations_win32.cpp)
+else()
+    list(APPEND SOURCE_FILES SpaceCadetPinball/translations_linux.cpp)
 endif(WIN32)
 
 add_executable(SpaceCadetPinball ${SOURCE_FILES})
