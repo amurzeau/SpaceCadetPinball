@@ -327,6 +327,16 @@ int winmain::WinMain(LPCSTR lpCmdLine)
 	return return_value;
 }
 
+static ImVec2 convert_coords_from_pinball_to_screen(ImVec2 coord) {
+	return ImVec2(coord.x * render::DestinationRect.w / render::vscreen->Width + render::DestinationRect.x,
+	coord.y * render::DestinationRect.h / render::vscreen->Height + render::DestinationRect.y);
+}
+
+static ImVec2 convert_size_from_pinball_to_screen(ImVec2 coord) {
+	return ImVec2(coord.x * render::DestinationRect.w / render::vscreen->Width,
+	coord.y * render::DestinationRect.h / render::vscreen->Height);
+}
+
 void winmain::RenderUi()
 {
 	// A minimal window with a button to prevent menu lockout.
@@ -653,6 +663,22 @@ void winmain::RenderUi()
 	options::RenderControlDialog();
 	if (DispGRhistory)
 		RenderFrameTimeDialog();
+	
+	// Print game texts on the sidebar
+	for(auto& textToDraw : gdrv::TextToDraw) {
+		ImGui::SetNextWindowPos(convert_coords_from_pinball_to_screen(ImVec2(textToDraw.second.x, textToDraw.second.y)));
+		ImGui::SetNextWindowSize(convert_size_from_pinball_to_screen(ImVec2(textToDraw.second.width, textToDraw.second.height)));
+		ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoInputs;
+
+		char windowName[512];
+		snprintf(windowName, sizeof(windowName), "game_state_%d", textToDraw.first);
+		if (ImGui::Begin(windowName, nullptr, window_flags))
+		{
+			ImGui::SetWindowFontScale((float)render::DestinationRect.w / render::vscreen->Width);
+			ImGui::TextWrapped(textToDraw.second.text.c_str());
+		}
+		ImGui::End();
+	}
 }
 
 int winmain::event_handler(const SDL_Event* event)

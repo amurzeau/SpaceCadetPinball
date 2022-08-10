@@ -8,6 +8,7 @@
 #include "winmain.h"
 
 ColorRgba gdrv::current_palette[256]{};
+std::map<int, gdrv::TextInfo> gdrv::TextToDraw;
 
 gdrv_bitmap8::gdrv_bitmap8(int width, int height) : gdrv_bitmap8(width, height, true, true)
 {
@@ -269,8 +270,9 @@ void gdrv::ScrollBitmapHorizontal(gdrv_bitmap8* bmp, int xStart)
 }
 
 
-void gdrv::grtext_draw_ttext_in_box(LPCSTR text, int xOff, int yOff, int width, int height, int a6)
+void gdrv::grtext_draw_ttext_in_box(LPCSTR text, int xOff, int yOff, int width, int height, int centered)
 {
+	TextToDraw[xOff + 100000 * yOff] = TextInfo{xOff, yOff, width, height, text};
 }
 
 void gdrv::ApplyPalette(gdrv_bitmap8& bmp)
