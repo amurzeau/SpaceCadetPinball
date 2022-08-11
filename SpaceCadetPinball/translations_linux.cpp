@@ -29,7 +29,7 @@
 #include "translations/swedish.h"
 #include "translations/turkish.h"
 
-std::map<std::string, const std::map<uint32_t, const char*>*> rc_strings
+static std::map<std::string, const std::map<uint32_t, const char*>*> rc_strings
 {
 	{ "ar", &rc_strings_arabic_saudi_arabia },
 	{ "zh_CN", &rc_strings_chinese_simplified },

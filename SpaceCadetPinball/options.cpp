@@ -3,6 +3,7 @@
 
 #include "fullscrn.h"
 #include "midi.h"
+#include "pinball.h"
 #include "render.h"
 #include "Sound.h"
 #include "winmain.h"
@@ -18,12 +19,12 @@ bool options::ShowDialog = false;
 GameInput* options::ControlWaitingForInput = nullptr;
 const ControlRef options::Controls[6]
 {
-	{"Left Flipper", RebindControls.LeftFlipper},
-	{"Right Flipper", RebindControls.RightFlipper},
-	{"Left Table Bump", RebindControls.LeftTableBump},
-	{"Right Table Bump", RebindControls.RightTableBump},
-	{"Bottom Table Bump", RebindControls.BottomTableBump},
-	{"Plunger", RebindControls.Plunger},
+	{IDS_KEYMAPPER_FlipperL, RebindControls.LeftFlipper},
+	{IDS_KEYMAPPER_FlipperR, RebindControls.RightFlipper},
+	{IDS_KEYMAPPER_BumpLeft, RebindControls.LeftTableBump},
+	{IDS_KEYMAPPER_BumpRight, RebindControls.RightTableBump},
+	{IDS_KEYMAPPER_BumpBottom, RebindControls.BottomTableBump},
+	{IDS_KEYMAPPER_Plunger, RebindControls.Plunger},
 };
 
 
@@ -339,18 +340,16 @@ void options::RenderControlDialog()
 		return;
 
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2{550, 450});
-	if (ImGui::Begin("3D Pinball: Player Controls", &ShowDialog))
+	if (ImGui::Begin(pinball::get_rc_string(IDS_KEYMAPPER_Caption, 1), &ShowDialog))
 	{
-		ImGui::TextUnformatted("Instructions");
+		ImGui::TextUnformatted(pinball::get_rc_string(IDS_KEYMAPPER_Groupbox2, 1));
 		ImGui::Separator();
 
-		ImGui::TextWrapped(
-			"To change game controls, click the control button, press the new key, and then choose OK.");
-		ImGui::TextWrapped(
-			"To restore 3D Pinball to its original settings, choose Default, and then choose OK.");
+		ImGui::TextWrapped(pinball::get_rc_string(IDS_KEYMAPPER_Help1, 0));
+		ImGui::TextWrapped(pinball::get_rc_string(IDS_KEYMAPPER_Help2, 0));
 		ImGui::Spacing();
 
-		ImGui::TextUnformatted("Control Options");
+		ImGui::TextUnformatted(pinball::get_rc_string(IDS_KEYMAPPER_Groupbox1, 1));
 
 		ImGui::PushStyleVar(ImGuiStyleVar_CellPadding, ImVec2{5, 10});
 		if (ImGui::BeginTable("Controls", 4, ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
@@ -366,7 +365,7 @@ void options::RenderControlDialog()
 			{
 				ImGui::TableNextColumn();
 				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{0.5, 0, 0, 1});
-				if (ImGui::Button(row.Name))
+				if (ImGui::Button(pinball::get_rc_string(row.NameStringId, 1)))
 				{
 					for (auto i = 0u; i <= 2; i++)
 						row.Option[i] = {};
@@ -419,20 +418,20 @@ void options::RenderControlDialog()
 		ImGui::PopStyleVar();
 		ImGui::Spacing();
 
-		if (ImGui::Button("OK"))
+		if (ImGui::Button(pinball::get_rc_string(IDS_KEYMAPPER_Ok, 1)))
 		{
 			Options.Key = RebindControls;
 			ShowDialog = false;
 		}
 
 		ImGui::SameLine();
-		if (ImGui::Button("Cancel"))
+		if (ImGui::Button(pinball::get_rc_string(IDS_KEYMAPPER_Cancel, 1)))
 		{
 			ShowDialog = false;
 		}
 
 		ImGui::SameLine();
-		if (ImGui::Button("Default"))
+		if (ImGui::Button(pinball::get_rc_string(IDS_KEYMAPPER_Default, 1)))
 		{
 			RebindControls = Options.KeyDft;
 			ControlWaitingForInput = nullptr;

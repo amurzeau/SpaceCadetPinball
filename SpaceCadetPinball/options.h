@@ -94,7 +94,7 @@ struct optionsStruct
 
 struct ControlRef
 {
-	const char* Name;
+	uint32_t NameStringId;
 	GameInput (&Option)[3];
 };
 

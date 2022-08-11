@@ -382,34 +382,34 @@ void winmain::RenderUi()
 			fullscrn::window_size_changed();
 		}
 
-		if (ImGui::BeginMenu("Game"))
+		if (ImGui::BeginMenu(pinball::get_rc_string(IDS_Menu1_Game, 1)))
 		{
-			if (ImGui::MenuItem("New Game", "F2"))
+			if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_New_Game, 1), "F2"))
 			{
 				new_game();
 			}
-			if (ImGui::MenuItem("Launch Ball", nullptr, false, LaunchBallEnabled))
+			if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_Launch_Ball, 1), nullptr, false, LaunchBallEnabled))
 			{
 				end_pause();
 				pb::launch_ball();
 			}
-			if (ImGui::MenuItem("Pause/Resume Game", "F3"))
+			if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_Pause_Resume_Game, 1), "F3"))
 			{
 				pause();
 			}
 			ImGui::Separator();
 
-			if (ImGui::MenuItem("High Scores...", nullptr, false, HighScoresEnabled))
+			if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_High_Scores, 1), nullptr, false, HighScoresEnabled))
 			{
 				pause(false);
 				pb::high_scores();
 			}
-			if (ImGui::MenuItem("Demo", nullptr, DemoActive))
+			if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_Demo, 1), nullptr, DemoActive))
 			{
 				end_pause();
 				pb::toggle_demo();
 			}
-			if (ImGui::MenuItem("Exit"))
+			if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_Exit, 1)))
 			{
 				SDL_Event event{SDL_QUIT};
 				SDL_PushEvent(&event);
@@ -417,41 +417,41 @@ void winmain::RenderUi()
 			ImGui::EndMenu();
 		}
 
-		if (ImGui::BeginMenu("Options"))
+		if (ImGui::BeginMenu(pinball::get_rc_string(IDS_Menu1_Options, 1)))
 		{
 			if (ImGui::MenuItem("Show Menu", "F9", Options.ShowMenu))
 			{
 				options::toggle(Menu1::Show_Menu);
 			}
-			if (ImGui::MenuItem("Full Screen", "F4", Options.FullScreen))
+			if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_Full_Screen, 1), "F4", Options.FullScreen))
 			{
 				options::toggle(Menu1::Full_Screen);
 			}
-			if (ImGui::BeginMenu("Select Players"))
+			if (ImGui::BeginMenu(pinball::get_rc_string(IDS_Menu1_Select_Players, 1)))
 			{
-				if (ImGui::MenuItem("1 Player", nullptr, Options.Players == 1))
+				if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_1Player, 1), nullptr, Options.Players == 1))
 				{
 					options::toggle(Menu1::OnePlayer);
 					new_game();
 				}
-				if (ImGui::MenuItem("2 Players", nullptr, Options.Players == 2))
+				if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_2Players, 1), nullptr, Options.Players == 2))
 				{
 					options::toggle(Menu1::TwoPlayers);
 					new_game();
 				}
-				if (ImGui::MenuItem("3 Players", nullptr, Options.Players == 3))
+				if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_3Players, 1), nullptr, Options.Players == 3))
 				{
 					options::toggle(Menu1::ThreePlayers);
 					new_game();
 				}
-				if (ImGui::MenuItem("4 Players", nullptr, Options.Players == 4))
+				if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_4Players, 1), nullptr, Options.Players == 4))
 				{
 					options::toggle(Menu1::FourPlayers);
 					new_game();
 				}
 				ImGui::EndMenu();
 			}
-			if (ImGui::MenuItem("Player Controls...", "F8"))
+			if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_Player_Controls, 1), "F8"))
 			{
 				pause(false);
 				options::ShowControlDialog();
@@ -482,7 +482,7 @@ void winmain::RenderUi()
 				}
 				ImGui::Separator();
 
-				if (ImGui::MenuItem("Music", "F6", Options.Music))
+				if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_Music, 1), "F6", Options.Music))
 				{
 					options::toggle(Menu1::Music);
 				}
@@ -553,7 +553,7 @@ void winmain::RenderUi()
 				ImGui::EndMenu();
 			}
 
-			if (ImGui::BeginMenu("Table Resolution"))
+			if (ImGui::BeginMenu(pinball::get_rc_string(IDS_Menu1_Table_Resolution, 1)))
 			{
 				char buffer[20]{};
 				auto maxResText = pinball::get_rc_string(fullscrn::GetMaxResolution() + IDS_Menu1_UseMaxResolution_640x480, 0);
@@ -584,7 +584,7 @@ void winmain::RenderUi()
 			ImGui::EndMenu();
 		}
 
-		if (ImGui::BeginMenu("Help"))
+		if (ImGui::BeginMenu(pinball::get_rc_string(IDS_Menu1_Help, 1)))
 		{
 #ifndef NDEBUG
 			if (ImGui::MenuItem("ImGui Demo", nullptr, ShowImGuiDemo))
@@ -643,7 +643,7 @@ void winmain::RenderUi()
 			}
 			ImGui::Separator();
 
-			if (ImGui::MenuItem("About Pinball"))
+			if (ImGui::MenuItem(pinball::get_rc_string(IDS_Menu1_About_Pinball, 1)))
 			{
 				pause(false);
 				ShowAboutDialog = true;
@@ -961,13 +961,13 @@ void winmain::a_dialog()
 	if (ShowAboutDialog == true)
 	{
 		ShowAboutDialog = false;
-		ImGui::OpenPopup("About");
+		ImGui::OpenPopup(pinball::get_rc_string(IDS_STRING204, 0));
 	}
 
 	bool unused_open = true;
-	if (ImGui::BeginPopupModal("About", &unused_open, ImGuiWindowFlags_AlwaysAutoResize))
+	if (ImGui::BeginPopupModal(pinball::get_rc_string(IDS_STRING204, 0), &unused_open, ImGuiWindowFlags_AlwaysAutoResize))
 	{
-		ImGui::TextUnformatted("3D Pinball for Windows - Space Cadet");
+		ImGui::TextUnformatted(pinball::get_rc_string(IDS_STRING139, 0));
 		ImGui::TextUnformatted("Original game by Cinematronics, Microsoft");
 		ImGui::Separator();
 

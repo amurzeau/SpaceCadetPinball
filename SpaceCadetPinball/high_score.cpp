@@ -121,7 +121,7 @@ void high_score::RenderHighScoreDialog()
 	if (ShowDialog == true)
 	{
 		ShowDialog = false;
-		if (!ImGui::IsPopupOpen("High Scores"))
+		if (!ImGui::IsPopupOpen(pinball::get_rc_string(IDS_HIGHSCORES_Caption, 1)))
 		{
 			dlg_enter_name = false;
 			while (!ScoreQueue.empty())
@@ -140,19 +140,19 @@ void high_score::RenderHighScoreDialog()
 				}
 			}
 
-			ImGui::OpenPopup("High Scores");
+			ImGui::OpenPopup(pinball::get_rc_string(IDS_HIGHSCORES_Caption, 1));
 		}
 	}
 
 	bool unused_open = true;
-	if (ImGui::BeginPopupModal("High Scores", &unused_open, ImGuiWindowFlags_AlwaysAutoResize))
+	if (ImGui::BeginPopupModal(pinball::get_rc_string(IDS_HIGHSCORES_Caption, 1), &unused_open, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		if (ImGui::BeginTable("table1", 3, ImGuiTableFlags_Borders))
 		{
 			char buf[36];
-			ImGui::TableSetupColumn("Rank");
-			ImGui::TableSetupColumn("Name");
-			ImGui::TableSetupColumn("Score");
+			ImGui::TableSetupColumn(pinball::get_rc_string(IDS_HIGHSCORES_Rank, 1));
+			ImGui::TableSetupColumn(pinball::get_rc_string(IDS_HIGHSCORES_Name, 1));
+			ImGui::TableSetupColumn(pinball::get_rc_string(IDS_HIGHSCORES_Score, 1));
 			ImGui::TableHeadersRow();
 
 			for (int offset = 0, row = 0; row < 5; row++)
@@ -184,7 +184,7 @@ void high_score::RenderHighScoreDialog()
 			ImGui::EndTable();
 		}
 
-		if (ImGui::Button("Ok"))
+		if (ImGui::Button(pinball::get_rc_string(IDS_HIGHSCORES_Ok, 1)))
 		{
 			if (dlg_enter_name)
 			{
@@ -194,23 +194,23 @@ void high_score::RenderHighScoreDialog()
 		}
 
 		ImGui::SameLine();
-		if (ImGui::Button("Cancel"))
+		if (ImGui::Button(pinball::get_rc_string(IDS_HIGHSCORES_Cancel, 1)))
 			ImGui::CloseCurrentPopup();
 
 		ImGui::SameLine();
-		if (ImGui::Button("Clear"))
+		if (ImGui::Button(pinball::get_rc_string(IDS_HIGHSCORES_Clear, 1)))
 			ImGui::OpenPopup("Confirm");
 		if (ImGui::BeginPopupModal("Confirm", nullptr, ImGuiWindowFlags_MenuBar))
 		{
 			ImGui::TextUnformatted(pinball::get_rc_string(IDS_STRING141, 0));
-			if (ImGui::Button("OK", ImVec2(120, 0)))
+			if (ImGui::Button(pinball::get_rc_string(IDS_HIGHSCORES_Ok, 1), ImVec2(120, 0)))
 			{
 				clear_table();
 				ImGui::CloseCurrentPopup();
 			}
 			ImGui::SetItemDefaultFocus();
 			ImGui::SameLine();
-			if (ImGui::Button("Cancel", ImVec2(120, 0)))
+			if (ImGui::Button(pinball::get_rc_string(IDS_HIGHSCORES_Cancel, 1), ImVec2(120, 0)))
 			{
 				ImGui::CloseCurrentPopup();
 			}
@@ -220,7 +220,7 @@ void high_score::RenderHighScoreDialog()
 		ImGui::EndPopup();
 
 		// Reenter dialog for the next score in the queue
-		if (!ImGui::IsPopupOpen("High Scores") && !ScoreQueue.empty())
+		if (!ImGui::IsPopupOpen(pinball::get_rc_string(IDS_HIGHSCORES_Caption, 1)) && !ScoreQueue.empty())
 		{
 			ShowDialog = true;
 		}
