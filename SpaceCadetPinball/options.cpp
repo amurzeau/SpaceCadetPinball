@@ -114,6 +114,7 @@ void options::InitPrimary()
 	Options.DebugOverlayCollisionMask = get_int("Debug Overlay Collision Mask", true);
 	Options.DebugOverlaySprites = get_int("Debug Overlay Sprites", true);
 	Options.DebugOverlaySounds = get_int("Debug Overlay Sounds", true);
+	Options.Language = get_string("Language", "en");
 }
 
 void options::InitSecondary()
@@ -161,7 +162,8 @@ void options::uninit()
 	set_int("Debug Overlay Ball Edges", Options.DebugOverlayBallEdges);
 	set_int("Debug Overlay Collision Mask", Options.DebugOverlayCollisionMask);
 	set_int("Debug Overlay Sprites", Options.DebugOverlaySprites);
-	get_int("Debug Overlay Sounds", Options.DebugOverlaySounds);
+	set_int("Debug Overlay Sounds", Options.DebugOverlaySounds);
+	set_string("Language", Options.Language.c_str());
 }
 
 

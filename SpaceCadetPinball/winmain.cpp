@@ -9,6 +9,7 @@
 #include "pb.h"
 #include "render.h"
 #include "Sound.h"
+#include "translations.h"
 
 SDL_Window* winmain::MainWindow = nullptr;
 SDL_Renderer* winmain::Renderer = nullptr;
@@ -445,6 +446,18 @@ void winmain::RenderUi()
 			{
 				pause(false);
 				options::ShowControlDialog();
+			}
+			if (ImGui::BeginMenu("Language"))
+			{
+				for(const auto& item : translations::Languages)
+				{
+					if (ImGui::MenuItem(item.first.c_str(), nullptr, Options.Language == item.first))
+					{
+						Options.Language = item.first;
+						winmain::Restart();
+					}
+				}
+				ImGui::EndMenu();
 			}
 			ImGui::Separator();
 

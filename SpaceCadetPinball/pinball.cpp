@@ -5,7 +5,7 @@
 
 int LoadStringAlt(uint32_t uID, LPSTR lpBuffer, int cchBufferMax)
 {
-	static const std::map<uint32_t, const char*>* translations = translations::get_translations();
+	const std::map<uint32_t, const char*>* translations = translations::get_translations();
 
 	auto str = translations->find(uID);
 	if (str == translations->end())
@@ -33,6 +33,7 @@ char* pinball::get_rc_string(int uID, int a2)
 	char* result = &getRcBuffer[256 * rc_string_slot];
 	if (!LoadStringAlt(uID, &getRcBuffer[256 * rc_string_slot], 255))
 		*result = 0;
+	
 	if (++rc_string_slot >= 6)
 		rc_string_slot = 0;
 	return result;

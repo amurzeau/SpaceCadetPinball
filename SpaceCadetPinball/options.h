@@ -90,6 +90,7 @@ struct optionsStruct
 	bool DebugOverlayCollisionMask;
 	bool DebugOverlaySprites;
 	bool DebugOverlaySounds;
+	std::string Language;
 };
 
 struct ControlRef

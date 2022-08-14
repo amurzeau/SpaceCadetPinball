@@ -173,6 +173,7 @@ set(SOURCE_FILES
         SpaceCadetPinball/DebugOverlay.cpp
         SpaceCadetPinball/DebugOverlay.h
 
+        SpaceCadetPinball/translations.cpp
         SpaceCadetPinball/translations.h
         SpaceCadetPinball/translations/arabic_saudi_arabia.cpp
         SpaceCadetPinball/translations/arabic_saudi_arabia.h
@@ -229,10 +230,6 @@ set(SOURCE_FILES
 if(WIN32)
     set_source_files_properties(SpaceCadetPinball/SpaceCadetPinball.rc LANGUAGE RC)
     list(APPEND SOURCE_FILES SpaceCadetPinball/SpaceCadetPinball.rc)
-
-    list(APPEND SOURCE_FILES SpaceCadetPinball/translations_win32.cpp)
-else()
-    list(APPEND SOURCE_FILES SpaceCadetPinball/translations_linux.cpp)
 endif(WIN32)
 
 add_executable(SpaceCadetPinball ${SOURCE_FILES})

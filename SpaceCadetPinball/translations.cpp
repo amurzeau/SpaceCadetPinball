@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <string>
+#include "options.h"
 
 #include "translations/arabic_saudi_arabia.h"
 #include "translations/chinese_simplified.h"
@@ -29,7 +30,7 @@
 #include "translations/swedish.h"
 #include "translations/turkish.h"
 
-static std::map<std::string, const std::map<uint32_t, const char*>*> rc_strings
+std::map<std::string, const std::map<uint32_t, const char*>*> translations::Languages
 {
 	{ "ar", &rc_strings_arabic_saudi_arabia },
 	{ "zh_CN", &rc_strings_chinese_simplified },
@@ -78,34 +79,14 @@ static void GetLanguageWithCountry(const char* localeName, char* languageOut, in
 }
 
 const std::map<uint32_t, const char*>* translations::get_translations() {
-	const char* LANGUAGE_ENVIRONMENT_VARIABLES[] = { "LANGUAGE", "LC_ALL", "LC_MESSAGES", "LANG"};
-    char language[32];
+    const std::string& language = options::Options.Language;
 
-	for(const char* environment_variable : LANGUAGE_ENVIRONMENT_VARIABLES) {
-        const char* variable = getenv(environment_variable);
-        if(variable) {
-            // Try with the full name but without encoding
-            GetLanguageWithCountry(variable, language, sizeof(language));
-
-            printf("Trying \"%s\"\n", language);
-
-            auto translation = rc_strings.find(language);
-            if(translation != rc_strings.end()) {
-                return translation->second;
-            }
-
-            // Try without country name
-            GetLanguage(variable, language, sizeof(language));
-
-            printf("Trying \"%s\"\n", language);
-
-            translation = rc_strings.find(language);
-            if(translation != rc_strings.end()) {
-                return translation->second;
-            }
-        }
+    auto translation = Languages.find(language);
+    if(translation != Languages.end()) {
+        return translation->second;
     }
 
     // If no matching language found, use english
+    printf("Language \"%s\" not found\n", language.c_str());
     return &rc_strings_english_us;
 }
