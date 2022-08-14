@@ -33,19 +33,6 @@ char* pinball::get_rc_string(int uID, int a2)
 	char* result = &getRcBuffer[256 * rc_string_slot];
 	if (!LoadStringAlt(uID, &getRcBuffer[256 * rc_string_slot], 255))
 		*result = 0;
-
-	if(a2) {
-		// Remove & characters
-		char* buffer = &getRcBuffer[256 * rc_string_slot];
-		int strSize = strlen(buffer) + 1;
-		for(size_t i = 0, j = 0; i < strSize; ++i) {
-  			if(buffer[i] != '&') {
-				buffer[j] = buffer[i];
-				j++;
-			}
-		}
-	}
-	
 	if (++rc_string_slot >= 6)
 		rc_string_slot = 0;
 	return result;
