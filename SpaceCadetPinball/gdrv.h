@@ -1,7 +1,6 @@
 #pragma once
 
-#include <map>
-#include <string>
+class TTextBox;
 
 enum class BitmapTypes : uint8_t
 {
@@ -83,18 +82,9 @@ public:
 	static void copy_bitmap_w_transparency(gdrv_bitmap8* dstBmp, int width, int height, int xOff, int yOff,
 	                                       gdrv_bitmap8* srcBmp, int srcXOff, int srcYOff);
 	static void ScrollBitmapHorizontal(gdrv_bitmap8* bmp, int xStart);
-	static void grtext_draw_ttext_in_box(LPCSTR text, int xOff, int yOff, int width, int height, int centered);
+	static void grtext_draw_ttext_in_box(TTextBox* textBox);
 	static void ApplyPalette(gdrv_bitmap8& bmp);
 	static void CreatePreview(gdrv_bitmap8& bmp);
-
-	struct TextInfo {
-		int x;
-		int y;
-		int width;
-		int height;
-		std::string text;
-	};
-	static std::map<int, TextInfo> TextToDraw;
 
 private:
 	static ColorRgba current_palette[256];
